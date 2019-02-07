@@ -39,14 +39,18 @@ app.post('/', function (req, res) {
             'Authorization': 'xavi1 5dfd45f040d7222aaae0efb5b994a770-us20'
         },
         body: jsonData
-
     }
 
     request(options, function (error, response, body) {
         if (error) {
             console.log(error);
+            res.send('there has been an error, please try again')
         } else {
-            console.log(response.statusCode);
+            if (response.statusCode === 200) {
+                res.send('Successfully subscribed!')
+            } else {
+                res.send('there has been an error, please try again')
+            }
         }
     })
 
