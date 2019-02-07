@@ -2,7 +2,20 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const request = require('request')
 
+let hiddenKeys = require('./config')
+
 const app = express()
+
+const mailchimpAPIKey = hiddenKeys.config.API_MAILCHIP_KEY
+const mailchimpListID = hiddenKeys.config.LIST_ID
+
+console.log(hiddenKeys);
+
+console.log(mailchimpAPIKey);
+console.log(mailchimpListID);
+
+
+
 
 app.use(express.static('public'))
 app.use(bodyParser.urlencoded({
@@ -33,10 +46,10 @@ app.post('/', function (req, res) {
     const jsonData = JSON.stringify(data)
 
     const options = {
-        url: 'https://us20.api.mailchimp.com/3.0/lists/1168c77b67',
+        url: `https://us20.api.mailchimp.com/3.0/lists/${mailchimpListID}`,
         method: 'POST',
         headers: {
-            'Authorization': 'xavi1 5dfd45f040d7222aaae0efb5b994a770-us20'
+            'Authorization': `xavi1 ${mailchimpAPIKey}`
         },
         body: jsonData
     }
@@ -49,7 +62,9 @@ app.post('/', function (req, res) {
             if (response.statusCode === 200) {
                 res.send('Successfully subscribed!')
             } else {
-                res.send('there has been an error, please try again')
+                console.log(response.statusCode);
+
+                res.send('there has been an error, please try again!!!!')
             }
         }
     })
