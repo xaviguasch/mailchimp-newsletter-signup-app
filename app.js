@@ -22,6 +22,7 @@ app.get('/', function (req, res) {
     res.sendFile(`${__dirname}/signup.html`)
 })
 
+
 app.post('/', function (req, res) {
     const firstName = req.body.fName
     const lastName = req.body.lName
@@ -62,9 +63,12 @@ app.post('/', function (req, res) {
             }
         }
     })
-
-
 })
+
+app.post('/failure', function (req, res) {
+    res.redirect('/')
+})
+
 
 
 app.listen(3000, function () {
