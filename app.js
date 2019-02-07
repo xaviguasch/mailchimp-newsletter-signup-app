@@ -9,11 +9,6 @@ const app = express()
 const mailchimpAPIKey = hiddenKeys.config.API_MAILCHIP_KEY
 const mailchimpListID = hiddenKeys.config.LIST_ID
 
-console.log(hiddenKeys);
-
-console.log(mailchimpAPIKey);
-console.log(mailchimpListID);
-
 
 
 
@@ -60,11 +55,10 @@ app.post('/', function (req, res) {
             res.send('there has been an error, please try again')
         } else {
             if (response.statusCode === 200) {
-                res.send('Successfully subscribed!')
+                res.sendFile(`${__dirname}/success.html`)
             } else {
                 console.log(response.statusCode);
-
-                res.send('there has been an error, please try again!!!!')
+                res.sendFile(`${__dirname}/failure.html`)
             }
         }
     })
