@@ -2,12 +2,9 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const request = require('request')
 
-let hiddenKeys = require('./config')
 
 const app = express()
 
-const mailchimpAPIKey = hiddenKeys.config.API_MAILCHIP_KEY
-const mailchimpListID = hiddenKeys.config.LIST_ID
 
 
 
@@ -42,10 +39,10 @@ app.post('/', function (req, res) {
     const jsonData = JSON.stringify(data)
 
     const options = {
-        url: `https://us20.api.mailchimp.com/3.0/lists/${mailchimpListID}`,
+        url: `https://us20.api.mailchimp.com/3.0/lists/${process.env.listId}`,
         method: 'POST',
         headers: {
-            'Authorization': `xavi1 ${mailchimpAPIKey}`
+            'Authorization': `xavi1 ${process.env.apiKey}`
         },
         body: jsonData
     }
